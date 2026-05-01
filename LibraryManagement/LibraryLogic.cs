@@ -1,6 +1,6 @@
-﻿namespace LibraryManagement;
+namespace LibraryManagement;
 
 public class LibraryLogic
 {
-
+	
 }

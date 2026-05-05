@@ -19,7 +19,7 @@ namespace LibraryManagement;
             LoanedBooks = new List<Book>();
         }
 
-        // 3. The options of a customer
+        // The options of a customer
 
         public void AddLoan(Book book)
         {

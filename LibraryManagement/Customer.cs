@@ -6,7 +6,7 @@ namespace LibraryManagement;
     {
         // Data for each customer
         public string Name { get; set; }
-        public string CustomerID { get; set; } // Should be unique
+        public string CustomerID { get; set; } 
 
         // List for 'Book' objects. 
         public List<Book> LoanedBooks { get; set; }

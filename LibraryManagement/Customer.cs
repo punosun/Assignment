@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace LibrarySystem
+namespace LibraryManagement;
 {
     public class Customer
     {

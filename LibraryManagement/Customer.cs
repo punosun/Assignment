@@ -27,10 +27,13 @@ namespace LibraryManagement;
             LoanedBooks.Add(book);
         }
 
-        public void RemoveLoan(Book book)
+        public void RemoveLoan(string isbn)
         {
-            // Removes a book from the list
-            LoanedBooks.Remove(book);
+            Book bookToRemove = LoanedBooks.Find(b => b.ISBN == isbn);
+            if (bookToRemove != null)
+            {
+                LoanedBooks.Remove(bookToRemove);
+            }
         }
 
         public string GetInfo()

@@ -11,7 +11,7 @@ namespace LibraryManagement;
         // List for 'Book' objects. 
         public List<Book> LoanedBooks { get; set; }
 
-        // This runs when you create a "new" customer
+        // This runs when you create a new customer
         public Customer(string name, string id)
         {
             Name = name;

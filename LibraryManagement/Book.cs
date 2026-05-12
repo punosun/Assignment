@@ -1,55 +1,73 @@
-﻿namespace LibraryManagement;
+﻿using System;
+using LibraryManagement;
+
+namespace LibraryManagement;
 
 public class Book
 {
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
-{
-    internal class Book
+    public Book(string Title, string Author, string Isbn)
     {
-
-        public Book(string title, string author, string isbn, string status)
-        {
-            this.title = title;
-            this.author = author;
-            this.isbn = isbn;
-            this.status = status;
-        }
-
-        public string title;
-        public string author;
-        public string isbn;
-        public string status;
-
-        public string ISBN { get; set; }
-        public string getTitle()
-
-        { return title; }
-    
-        public string getAuthor()
-
-        { return author; }
-       
-        public string getIsbn()
-        { return isbn; }
-        
-        public void GetDetails()
-        {
-            Console.WriteLine(" Title: " + title + ": " + " Author: " + author +  "  " + " ISBN: " + isbn + " ");
-        }
-
-       
-
-        
+        this.Title = Title;
+        this.Author = Author;
+        this.Isbn = Isbn;
+        this.status = "Available";
     }
 
+    public string Title;
+    public string Author;
+    public string Isbn; 
+    public string Status;
 
-}
+    public string ISBN { get; set; }
+    
+    public string GetTitle()
+
+    { return Title; }
+
+    public string GetAuthor()
+
+    { return Author; }
+
+    public string GetIsbn()
+    { return Isbn; }
+
+    public void GetDetails()
+    {
+        Console.WriteLine(" Title: " + Title + ": " + " Author: " + Author + "  " + " ISBN: " + Isbn + " ");
+    }
+
+    public class Book1
+    {
+        public string Title { get; set; }
+        public bool IsAvailable { get; private set; }
+
+        public Book1(string title)
+        {
+            Title = title;
+            IsAvailable = true; // default status
+        }
+
+
+    }
+    public string status = "available";
+
+    public void SetStatus(string v)
+    {
+        
+        status = "Available";
+
+        if (status == "Available")
+        {
+            Console.WriteLine($"{Title} is available.");
+        }
+        else
+        {
+            Console.WriteLine($"{Title} is on loan.");
+        }
+    }
+    public string GetStatus()
+    {
+        return status;
+    }
 }

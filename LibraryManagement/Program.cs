@@ -7,6 +7,7 @@ namespace LibraryManagement
         static void Main(string[] args)
         {
             var library = new LibraryLogic();
+             List<Book> bookList = new List<Book>();
     
             var book1 = new Book("Star", "Yokio Mishima", "9780241383476");
             var book2 = new Book("Pale Fire", "Vladimir Nabokov", "9780141185262");
@@ -61,8 +62,8 @@ namespace LibraryManagement
                     if (run_prog >= 0 && run_prog <= 9)
                     {
                         if (run_prog == 1)  { ViewBooks(); }
-                        //if (run_prog == 2)  { RegisterBook(); }
-                        //if (run_prog == 3)  { DeleteBook(); }
+                        if (run_prog == 2)  { RegisterBook(); }
+                        if (run_prog == 3)  { DeleteBook(); }
                         if (run_prog == 4)  { ViewCustomers(); }
                         //if (run_prog == 5)  { AddCustomer(); }
                         //if (run_prog == 6)  { RemoveCustomer(); }
@@ -107,6 +108,70 @@ namespace LibraryManagement
                 }
                 Hold();
             }
+            // 2. Register a book
+             void RegisterBook()
+ {
+     {
+         Console.WriteLine("Type the name of the book");
+         string? title = Console.ReadLine();
+
+         Console.WriteLine("Type the author of the book");
+         string? author = Console.ReadLine();
+
+         Random random = new Random();  // generating a random and unique ISBN
+         string isbn = "";
+
+         for (int i = 0; i < 13; i++)
+         {
+             isbn += random.Next(0, 10);
+         }
+         Console.WriteLine("ISBN: " + isbn);
+
+         string? status = Console.ReadLine();
+
+         Book addedBook = new Book(title, author, isbn);
+         library.AddBook(addedBook);
+     }
+     void DeleteBook()
+     
+     {
+    {
+        Console.WriteLine("Which book do you want to remove from the system? USE Title");
+
+        for (int i = 0; i < library.GetBooks().Count; i++)
+        {
+            library.GetBooks();
+            Console.WriteLine("\n");
+        }
+
+        string? bookRemoved = Console.ReadLine();
+        bool bookRemove = false;
+        
+
+        for (int i = 0; i < library.GetBooks().Count; i++)
+        {
+            if (library[i].ISBN() == bookRemoved)
+            {
+                library.RemoveBook(bookRemoved);
+                bookRemove = true;
+            }
+
+        }
+        if (bookRemove)
+        {
+            Console.WriteLine("Book was Sucesfully removed! And marked as available");
+        }
+        else
+        {
+            Console.WriteLine("Invalid Input. No book was found with that title!");
+        }
+    }
+}
+                
+                    
+                
+ }
+
 
             // 4. VIEW ALL CUSTOMERS
             void ViewCustomers()

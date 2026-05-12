@@ -170,10 +170,29 @@ namespace LibraryManagement
             Console.WriteLine("Loan record not found.");
         }
 
-        /*public string GetCustomerLoans()
+         public List<string> GetCustomerLoans()
         {
-            // List of all loaned books and the customers that have loaned them?
+            // Returns a list of all loaned books and the customers that have loaned them?
+            
+            // Create an empty <string< list to add all loaned books in
+            List<string> bookloans = new List<string>();
+
+            // Go through all customers and check if they have books in their LoanedBooks list
+            foreach (Customer customer in customers)
+            {
+                if (customer.LoanedBooks.Count != 0)
+                {
+                    foreach (Book book in customer.LoanedBooks)
+                    {
+                        bookloans.Add($"{book.ISBN,-16}"+
+                                      $"{book.Title,-25}"+
+                                      $"{book.Author,-23}"+
+                                      $"{customer.CustomerID,-5}"+
+                                      $"{customer.Name}");
+                    }
+                }
+            }
+            return bookloans;
         }
-        */
     }
 }

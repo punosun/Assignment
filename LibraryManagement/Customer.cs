@@ -3,6 +3,7 @@ using System.Collections.Generic;
 namespace LibraryManagement
 {
     public class Customer
+        //final version
     {
         // Data for each customer
         public string Name { get; set; }

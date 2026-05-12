@@ -64,8 +64,8 @@ namespace LibraryManagement
                         //if (run_prog == 2)  { RegisterBook(); }
                         //if (run_prog == 3)  { DeleteBook(); }
                         if (run_prog == 4)  { ViewCustomers(); }
-                        //if (run_prog == 5)  { AddCustomer(); }
-                        //if (run_prog == 6)  { RemoveCustomer(); }
+                        if (run_prog == 5)  { RegisterCustomer(); }
+                        if (run_prog == 6)  { RemoveCustomer(); }
                         if (run_prog == 7)  { LoanBookToCustomer(); }
                         if (run_prog == 8)  { ReturnBook(); }
                         if (run_prog == 9)  { DisplayCustomerInfo(); }
@@ -120,6 +120,69 @@ namespace LibraryManagement
                 foreach (var customer in library.GetCustomers())
                 {
                     Console.WriteLine($"{customer.Name,-30}{customer.CustomerID,-25}");
+                }
+                Hold();
+            }
+
+            // 5. REGISTER NEW CUSTOMER
+            void RegisterCustomer()
+            {
+                Console.Clear();
+                Console.WriteLine("REGISTER NEW CUSTOMER");
+                Console.WriteLine("--------------------------------------------------------------------");
+
+                Console.Write("Enter Customer Name: ");
+                string name = Console.ReadLine()!;
+
+                Console.Write("Enter Customer ID: ");
+                string id = Console.ReadLine()!;
+
+                // Validation: Check if they left it blank
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(id))
+                {
+                    Console.WriteLine("Error: Name and ID cannot be empty.");
+                }
+                else
+                {
+                    // Create the object and add it to the library
+                    Customer newCustomer = new Customer(name, id);
+                    library.AddCustomer(newCustomer);
+                    Console.WriteLine($"\n[SUCCESS] Customer '{name}' successfully registered!");
+                }
+                Hold();
+            }
+
+            // 6. REMOVE CUSTOMER FROM SYSTEM
+
+            void RemoveCustomer()
+            {
+                Console.Clear();
+                Console.WriteLine("REMOVE CUSTOMER FROM SYSTEM");
+                Console.WriteLine("--------------------------------------------------------------------");
+
+                Console.Write("Enter the ID of the customer to remove: ");
+                string id = Console.ReadLine()!;
+
+                var customer = library.GetCustomers().FirstOrDefault(c => c.CustomerID == id);
+
+                if (customer == null)
+                {
+                    // Error Label
+                    Console.WriteLine("\n[ERROR] No customer found with that ID.");
+                }
+                else
+                {
+                    if (customer.LoanedBooks.Count > 0)
+                    {
+                        // Warning Label
+                        Console.WriteLine($"\n[WARNING] Cannot remove {customer.Name}. Return all books first.");
+                    }
+                    else
+                    {
+                        library.RemoveCustomer(id);
+                        // Success Label
+                        Console.WriteLine($"\n[SUCCESS] Customer '{customer.Name}' removed.");
+                    }
                 }
                 Hold();
             }

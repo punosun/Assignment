@@ -23,11 +23,12 @@ using System.Xml.Linq;
             this.status = status;
         }
 
-        private string title;
-        private string author;
-        private string isbn;
-        private string status;
+        public string title;
+        public string author;
+        public string isbn;
+        public string status;
 
+        public string ISBN { get; set; }
         public string getTitle()
 
         { return title; }
@@ -44,10 +45,7 @@ using System.Xml.Linq;
             Console.WriteLine(" Title: " + title + ": " + " Author: " + author +  "  " + " ISBN: " + isbn + " ");
         }
 
-        public void SetStatus() // Check if book is available or on loan
-        { 
-
-        }
+       
 
         
     }

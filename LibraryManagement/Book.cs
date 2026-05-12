@@ -23,10 +23,10 @@ using System.Xml.Linq;
             this.status = status;
         }
 
-        private string title;
-        private string author;
-        private string isbn;
-        private string status;
+        public string title;
+        public string author;
+        public string isbn;
+        public string status;
 
         public string getTitle()
 

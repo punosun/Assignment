@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace LibraryManagement;
+namespace LibraryManagement
 {
     public class Customer
     {
@@ -29,7 +29,7 @@ namespace LibraryManagement;
 
         public void RemoveLoan(string isbn)
         {
-            Book bookToRemove = LoanedBooks.Find(b => b.ISBN == isbn);
+            Book? bookToRemove = LoanedBooks.Find(b => b.ISBN == isbn);
             if (bookToRemove != null)
             {
                 LoanedBooks.Remove(bookToRemove);
@@ -41,9 +41,16 @@ namespace LibraryManagement;
             // Returns a string with the customer's details and their books
             string info = $"ID: {CustomerID}, Name: {Name}\nBorrowed Books:";
 
-            foreach (var book in LoanedBooks)
+            if (LoanedBooks.Count == 0)
             {
-                info += $"\n - {book.Title}";
+                info += " None";
+            }
+            else
+            {
+                foreach (var book in LoanedBooks)
+                {
+                    info += $"\n - {book.Title}";
+                }
             }
             return info;
         }

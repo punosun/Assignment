@@ -7,7 +7,7 @@ namespace LibraryManagement
         static void Main(string[] args)
         {
             var library = new LibraryLogic();
-             List<Book> bookList = new List<Book>();
+             //List<Book> bookList = new List<Book>();
     
             var book1 = new Book("Star", "Yokio Mishima", "9780241383476");
             var book2 = new Book("Pale Fire", "Vladimir Nabokov", "9780141185262");
@@ -29,17 +29,31 @@ namespace LibraryManagement
             library.AddCustomer(customer3);
             library.AddCustomer(customer4);
 
+            library.LoanBook("9780241383476", "001");
+            library.LoanBook("9781840226447", "003");
+            
+            Console.Write("Test 1: " );
+            library.RemoveCustomer("009");              // Test 1, customer not found       
+            Console.Write("Test 2: " );
+            library.RemoveBook("9780241383476");        // Test 2, book is on loan
+            Console.Write("Test 3: " );
+            library.RemoveBook("0000000000000");        // Test 3, book not found
+            Console.Write("Test 4: " );
+            var book5 = new Book("Blodapelsin", "Conny McDonald", "9780679641041"); // Same ISBN as book4
+            library.AddBook(book5);                     // Test 4, ISBN already exists
+
+
             //********************************************
             //****** LIBRARY MANAGEMENT SYSTEM MENU ******
             //********************************************
 
-            Console.Clear();
+            //Console.Clear();
             Console.WriteLine("\n  📕 WELCOME TO LIBRARY MANAGEMENT SYSTEM!\n");
 
             bool continue_menu = true;
             while (continue_menu)
             {
-                Console.WriteLine("   MENU\n" +
+                Console.WriteLine("    MENU\n" +
                                   "------------------------------------------\n" +
                                   " 1. View all books\n" +
                                   " 2. Register new book\n" +
@@ -70,7 +84,7 @@ namespace LibraryManagement
                         if (run_prog == 7)  { LoanBookToCustomer(); }
                         if (run_prog == 8)  { ReturnBook(); }
                         if (run_prog == 9)  { DisplayCustomerInfo(); }
-                        //if (run_prog == 10) { DisplayBooksOnLoan(); }
+                        if (run_prog == 10) { DisplayBooksOnLoan(); }
                         if (run_prog == 0)  { continue_menu = false; }
                     }
                     else
@@ -108,71 +122,74 @@ namespace LibraryManagement
                 }
                 Hold();
             }
-            // 2. Register a book
-             void RegisterBook()
- {
-     {
-         Console.WriteLine("Type the name of the book");
-         string? title = Console.ReadLine();
-
-         Console.WriteLine("Type the author of the book");
-         string? author = Console.ReadLine();
-
-         Random random = new Random();  // generating a random and unique ISBN
-         string isbn = "";
-
-         for (int i = 0; i < 13; i++)
-         {
-             isbn += random.Next(0, 10);
-         }
-         Console.WriteLine("ISBN: " + isbn);
-
-         string? status = Console.ReadLine();
-
-         Book addedBook = new Book(title, author, isbn);
-         library.AddBook(addedBook);
-     }
-     void DeleteBook()
-     
-     {
-    {
-        Console.WriteLine("Which book do you want to remove from the system? USE Title");
-
-        for (int i = 0; i < library.GetBooks().Count; i++)
-        {
-            library.GetBooks();
-            Console.WriteLine("\n");
-        }
-
-        string? bookRemoved = Console.ReadLine();
-        bool bookRemove = false;
-        
-
-        for (int i = 0; i < library.GetBooks().Count; i++)
-        {
-            if (library[i].ISBN() == bookRemoved)
+            // 2. REGISTER A BOOK
+            void RegisterBook()
             {
-                library.RemoveBook(bookRemoved);
-                bookRemove = true;
+                Console.Write("Type the name of the book: ");
+                string? title = Console.ReadLine();
+
+                Console.Write("Type the author of the book: ");
+                string? author = Console.ReadLine();
+
+                // How do you know it is unique? I think it is better to write manually and check if it already exists.
+                Random random = new Random();  // generating a random and unique ISBN
+                string isbn = "";
+    
+                for (int i = 0; i < 13; i++)
+                {
+                    isbn += random.Next(0, 10);
+                }
+                Console.WriteLine("ISBN: " + isbn);
+    
+                Book addedBook = new Book(title, author, isbn);
+                library.AddBook(addedBook);
+
+                Hold();
             }
 
-        }
-        if (bookRemove)
-        {
-            Console.WriteLine("Book was Sucesfully removed! And marked as available");
-        }
-        else
-        {
-            Console.WriteLine("Invalid Input. No book was found with that title!");
-        }
-    }
-}
-                
-                    
-                
- }
+            // 3. DELETE A BOOK
+            void DeleteBook()
+            {
+                /*
+                // Needs to be done with ISBN since it is unique - there can be many books with same name
+                Console.WriteLine("Which book do you want to remove from the system? USE Title");
 
+                // I dont see what this loop is for
+                for (int i = 0; i < library.GetBooks().Count; i++)
+                {
+                    library.GetBooks();
+                    Console.WriteLine("\n");
+                }
 
+                string? bookRemoved = Console.ReadLine();
+                bool bookRemove = false;
+        
+                // 
+                for (int i = 0; i < library.GetBooks().Count; i++)
+                {
+                    if (library[i].ISBN() == bookRemoved)
+                    {
+                        library.RemoveBook(bookRemoved);
+                        bookRemove = true;
+                    }
+                }
+        
+                if (bookRemove)
+                {
+                    Console.WriteLine("Book was Sucesfully removed! And marked as available");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input. No book was found with that title!");
+                } */
+
+                Console.WriteLine("Which book do you want to remove from the system (ISBN)? ");
+                string isbn = Console.ReadLine()!;
+                library.RemoveBook(isbn);
+
+                Hold();
+            }    
+                
             // 4. VIEW ALL CUSTOMERS
             void ViewCustomers()
             {
@@ -306,21 +323,19 @@ namespace LibraryManagement
             }
 
             // 10. DISPLAY BOOKS ON LOAN
-            /*
-            void DisplayBooksOnLoan()
+            void DisplayAllBooksOnLoan()
             {
                 Console.Clear();
-                Console.WriteLine("VIEW ALL BOOKS");
-                Console.WriteLine("--------------------------------------------------------------------------------");
-                Console.WriteLine("Title                    Author                 ISBN                  Customer    ");
-                Console.WriteLine("--------------------------------------------------------------------------------");
+                Console.WriteLine("DISPLAY ALL BOOKS ON LOAN 📕");
+                Console.WriteLine("------------------------------------------------------------------------------------");
+                Console.WriteLine("ISBN            Title                    Author                 ID   Customer       ");
+                Console.WriteLine("------------------------------------------------------------------------------------");
     
-                foreach (var book in library.GetCustomerLoans())
+                foreach (var str in library.GetCustomerLoans())
                 {
-                    Console.WriteLine($"{book.Title,-25}{book.Author,-23}{book.ISBN,-23}{customer.Name}");    
+                    Console.WriteLine(str);    
                 }
             }
-            */
 
             // HOLD METHOD FOR SMOOTHER USER EXPERIENCE
             // GIVES USER TIME TO READ MESSAGE BEFORE RETURNING TO MENU

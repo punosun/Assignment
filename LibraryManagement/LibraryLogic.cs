@@ -44,6 +44,7 @@ namespace LibraryManagement
                     if (b.Status == "On Loan")
                     {
                         Console.WriteLine("Book is on loan.");
+                        return;
                     }
 
                     books.Remove(b);
@@ -69,6 +70,7 @@ namespace LibraryManagement
                 if (c.CustomerID == customer.CustomerID)
                 {
                     Console.WriteLine("Customer already exists.");
+                    return;
                 }
             }
 
@@ -87,6 +89,7 @@ namespace LibraryManagement
                     if (c.LoanedBooks.Count > 0)
                     {
                         Console.WriteLine("Customer has loaned books.");
+                        return;
                     }
 
                     customers.Remove(c);
@@ -170,7 +173,7 @@ namespace LibraryManagement
             Console.WriteLine("Loan record not found.");
         }
 
-         public List<string> GetCustomerLoans()
+        public List<string> GetCustomerLoans()
         {
             // Returns a list of all loaned books and the customers that have loaned them?
             

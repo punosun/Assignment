@@ -126,12 +126,21 @@ namespace LibraryManagement
             void RegisterBook()
             {
                 Console.Write("Type the name of the book: ");
-                string? title = Console.ReadLine();
-
+                string title = Console.ReadLine()!;
+                while(string.IsNullOrWhiteSpace(title))
+                {
+                    Console.WriteLine("Title cannot be empty! Try Again");
+                    title = Console.ReadLine()!;
+                }
+                
                 Console.Write("Type the author of the book: ");
-                string? author = Console.ReadLine();
+                string author = Console.ReadLine()!;
+                while(string.IsNullOrWhiteSpace(author))
+                {
+                    Console.WriteLine("Author cannot be empty! Try Again");
+                    author = Console.ReadLine()!;
+                }
 
-                // How do you know it is unique? I think it is better to write manually and check if it already exists.
                 Random random = new Random();  // generating a random and unique ISBN
                 string isbn = "";
     
@@ -149,44 +158,16 @@ namespace LibraryManagement
 
             // 3. DELETE A BOOK
             void DeleteBook()
-            {
-                /*
-                // Needs to be done with ISBN since it is unique - there can be many books with same name
-                Console.WriteLine("Which book do you want to remove from the system? USE Title");
-
-                // I dont see what this loop is for
-                for (int i = 0; i < library.GetBooks().Count; i++)
-                {
-                    library.GetBooks();
-                    Console.WriteLine("\n");
-                }
-
-                string? bookRemoved = Console.ReadLine();
-                bool bookRemove = false;
-        
-                // 
-                for (int i = 0; i < library.GetBooks().Count; i++)
-                {
-                    if (library[i].ISBN() == bookRemoved)
-                    {
-                        library.RemoveBook(bookRemoved);
-                        bookRemove = true;
-                    }
-                }
-        
-                if (bookRemove)
-                {
-                    Console.WriteLine("Book was Sucesfully removed! And marked as available");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Input. No book was found with that title!");
-                } */
-
-                Console.WriteLine("Which book do you want to remove from the system (ISBN)? ");
+            {              
+                Console.WriteLine("Which book do you want to remove from the system (USE: ISBN)? ");
                 string isbn = Console.ReadLine()!;
+                while(string.IsNullOrWhiteSpace(isbn))
+                {
+                    Console.WriteLine("Please enter a value. Try again.");
+                    isbn = Console.ReadLine()!;
+                }
                 library.RemoveBook(isbn);
-
+                
                 Hold();
             }    
                 
@@ -323,7 +304,7 @@ namespace LibraryManagement
             }
 
             // 10. DISPLAY BOOKS ON LOAN
-            void DisplayAllBooksOnLoan()
+            void DisplayBooksOnLoan()
             {
                 Console.Clear();
                 Console.WriteLine("DISPLAY ALL BOOKS ON LOAN 📕");

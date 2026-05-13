@@ -32,23 +32,32 @@ namespace LibraryManagement
             library.LoanBook("9780241383476", "001");
             library.LoanBook("9781840226447", "003");
             
-            Console.Write("Test 1: " );
-            library.RemoveCustomer("009");              // Test 1, customer not found       
-            Console.Write("Test 2: " );
+            // Test 1. Try to remove customer that does not exist
+            Console.Write("Test 1: " );             
+            library.RemoveCustomer("009");          // Test 1, customer not found       
+
+            // Test 2. Try to remove book that is "On Loan"
+            Console.Write("Test 2: " );             
             library.RemoveBook("9780241383476");        // Test 2, book is on loan
+
+            // Test 3. Try to remove book with false ISBN
             Console.Write("Test 3: " );
             library.RemoveBook("0000000000000");        // Test 3, book not found
+
+            // Try to add a new book with ISBN that is already in the library
             Console.Write("Test 4: " );
             var book5 = new Book("Blodapelsin", "Conny McDonald", "9780679641041"); // Same ISBN as book4
             library.AddBook(book5);                     // Test 4, ISBN already exists
+
+            //Hold();
 
 
             //********************************************
             //****** LIBRARY MANAGEMENT SYSTEM MENU ******
             //********************************************
 
-            //Console.Clear();
-            Console.WriteLine("\n  📕 WELCOME TO LIBRARY MANAGEMENT SYSTEM!\n");
+            Console.Clear();
+            Console.WriteLine("\n 📕 WELCOME TO LIBRARY MANAGEMENT SYSTEM! 📗\n");
 
             bool continue_menu = true;
             while (continue_menu)
@@ -73,7 +82,7 @@ namespace LibraryManagement
 
                 if (int.TryParse(input, out int run_prog))
                 {
-                    if (run_prog >= 0 && run_prog <= 9)
+                    if (run_prog >= 0 && run_prog <= 10)
                     {
                         if (run_prog == 1)  { ViewBooks(); }
                         if (run_prog == 2)  { RegisterBook(); }
@@ -125,6 +134,10 @@ namespace LibraryManagement
             // 2. REGISTER A BOOK
             void RegisterBook()
             {
+                Console.Clear();
+                Console.WriteLine("REGISTER A BOOK");
+                Console.WriteLine("--------------------------------------------------------------------");
+
                 Console.Write("Type the name of the book: ");
                 string title = Console.ReadLine()!;
                 while(string.IsNullOrWhiteSpace(title))
@@ -159,6 +172,10 @@ namespace LibraryManagement
             // 3. DELETE A BOOK
             void DeleteBook()
             {              
+                Console.Clear();
+                Console.WriteLine("DELETE A BOOK");
+                Console.WriteLine("--------------------------------------------------------------------");
+
                 Console.WriteLine("Which book do you want to remove from the system (USE: ISBN)? ");
                 string isbn = Console.ReadLine()!;
                 while(string.IsNullOrWhiteSpace(isbn))
@@ -210,6 +227,11 @@ namespace LibraryManagement
                     // Create the object and add it to the library
                     Customer newCustomer = new Customer(name, id);
                     library.AddCustomer(newCustomer);
+
+                    // If you try to add a customer with an ID already used they will 
+                    // not be added. But this line (SUCCESS) will still run.
+                    // Option 1. Check if ID is already in use in this Mehod (AddCustomer does a check)
+                    // Option 2. Remove this line (SUCCESS) - (AddCustomer in LibraryLogig also print SUCCESS line)
                     Console.WriteLine($"\n[SUCCESS] Customer '{name}' successfully registered!");
                 }
                 Hold();
@@ -293,14 +315,32 @@ namespace LibraryManagement
                 
                 Console.Write("Enter customer ID: ");
                 string customerID = Console.ReadLine()!;
+                
+                // Alt. 1:
+                /*
                 Customer? customer = library.customers.FirstOrDefault(c => c.CustomerID == customerID);
                 if (customer == null)
                 {
                     Console.WriteLine("Customer not in the system.");
                     return;
-                }
+                } 
                 Console.WriteLine(customer.GetInfo());
-                Hold();
+                Hold()
+                */
+
+                // Alt. 2:
+                foreach (Customer c in library.GetCustomers())
+                {
+                    if (c.CustomerID == customerID)
+                    {
+                        Console.WriteLine(c.GetInfo());
+                        Hold();
+                        return;
+                    }
+                }
+                Console.WriteLine("Customer not in the system.");
+                
+                
             }
 
             // 10. DISPLAY BOOKS ON LOAN
@@ -316,6 +356,8 @@ namespace LibraryManagement
                 {
                     Console.WriteLine(str);    
                 }
+
+                Hold();
             }
 
             // HOLD METHOD FOR SMOOTHER USER EXPERIENCE

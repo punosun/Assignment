@@ -27,10 +27,11 @@ namespace LibraryManagement
                 if (b.ISBN == book.ISBN)
                 {
                     Console.WriteLine("Book already exists.");
+                    return;
                 }
             }
             books.Add(book);
-            Console.WriteLine("Book added successfully.");
+            Console.WriteLine($"Book: \"{book.Title}\" added successfully.");
         }
 
         public void RemoveBook(string isbn)
@@ -75,7 +76,7 @@ namespace LibraryManagement
             }
 
             customers.Add(customer);
-            Console.WriteLine("Customer added successfully.");
+            Console.WriteLine($"Customer {customer.Name} added successfully.");
         }
 
         public void RemoveCustomer(string customerId)

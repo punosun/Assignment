@@ -9,6 +9,7 @@ namespace LibraryManagement
             var library = new LibraryLogic();
              //List<Book> bookList = new List<Book>();
     
+            // Add some initial books for the library
             var book1 = new Book("Star", "Yokio Mishima", "9780241383476");
             var book2 = new Book("Pale Fire", "Vladimir Nabokov", "9780141185262");
             var book3 = new Book("The King in Yellow", "Robert W. Chambers", "9781840226447");
@@ -19,6 +20,7 @@ namespace LibraryManagement
             library.AddBook(book3);
             library.AddBook(book4);
 
+            // And some initial customers
             var customer1 = new Customer("Adam Andersson", "001");
             var customer2 = new Customer("Bea Bengtsson", "002");
             var customer3 = new Customer("Cleas Carlsson", "003");
@@ -29,27 +31,29 @@ namespace LibraryManagement
             library.AddCustomer(customer3);
             library.AddCustomer(customer4);
 
+            // Log two loans
             library.LoanBook("9780241383476", "001");
             library.LoanBook("9781840226447", "003");
             
             // Test 1. Try to remove customer that does not exist
             Console.Write("Test 1: " );             
-            library.RemoveCustomer("009");          // Test 1, customer not found       
+            library.RemoveCustomer("009");          // Output: customer not found       
 
             // Test 2. Try to remove book that is "On Loan"
             Console.Write("Test 2: " );             
-            library.RemoveBook("9780241383476");        // Test 2, book is on loan
+            library.RemoveBook("9780241383476");        // Output: book is on loan
 
             // Test 3. Try to remove book with false ISBN
             Console.Write("Test 3: " );
-            library.RemoveBook("0000000000000");        // Test 3, book not found
+            library.RemoveBook("0000000000000");        // Output: book not found
 
             // Try to add a new book with ISBN that is already in the library
             Console.Write("Test 4: " );
             var book5 = new Book("Blodapelsin", "Conny McDonald", "9780679641041"); // Same ISBN as book4
-            library.AddBook(book5);                     // Test 4, ISBN already exists
+            library.AddBook(book5);                     // Output: book already exists
 
-            //Hold();
+            // Un-comment this Hold() method if you want to see the initial test results:
+            // Hold();
 
 
             //********************************************
@@ -62,6 +66,7 @@ namespace LibraryManagement
             bool continue_menu = true;
             while (continue_menu)
             {
+                //Console.Clear();
                 Console.WriteLine("    MENU\n" +
                                   "------------------------------------------\n" +
                                   " 1. View all books\n" +

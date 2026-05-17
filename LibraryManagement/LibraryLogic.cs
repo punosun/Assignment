@@ -31,7 +31,7 @@ namespace LibraryManagement
                 }
             }
             books.Add(book);
-            Console.WriteLine($"Book: \"{book.Title}\" added successfully.");
+            Console.WriteLine($"Book \"{book.Title}\" added successfully.");
         }
 
         public void RemoveBook(string isbn)
@@ -49,7 +49,7 @@ namespace LibraryManagement
                     }
 
                     books.Remove(b);
-                    Console.WriteLine("Book removed successfully.");
+                    Console.WriteLine($"Book \"{b.Title}\" removed successfully.");
                     return;
                 }
             }
@@ -76,7 +76,7 @@ namespace LibraryManagement
             }
 
             customers.Add(customer);
-            Console.WriteLine($"Customer {customer.Name} added successfully.");
+            Console.WriteLine($"Customer '{customer.Name}' added successfully.");
         }
 
         public void RemoveCustomer(string customerId)
@@ -94,7 +94,7 @@ namespace LibraryManagement
                     }
 
                     customers.Remove(c);
-                    Console.WriteLine("Customer removed successfully.");
+                    Console.WriteLine($"Customer '{c.Name}' removed successfully.");
                     return;
                 }
             }

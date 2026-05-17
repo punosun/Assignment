@@ -232,7 +232,7 @@ namespace LibraryManagement
                     // not be added. But this line (SUCCESS) will still run.
                     // Option 1. Check if ID is already in use in this Mehod (AddCustomer does a check)
                     // Option 2. Remove this line (SUCCESS) - (AddCustomer in LibraryLogig also print SUCCESS line)
-                    Console.WriteLine($"\n[SUCCESS] Customer '{name}' successfully registered!");
+                    // Console.WriteLine($"\n[SUCCESS] Customer '{name}' successfully registered!");
                 }
                 Hold();
             }
@@ -265,8 +265,8 @@ namespace LibraryManagement
                     else
                     {
                         library.RemoveCustomer(id);
-                        // Success Label
-                        Console.WriteLine($"\n[SUCCESS] Customer '{customer.Name}' removed.");
+                        // Success Label - commented out becausa also in RemoveCustomer() method
+                        //Console.WriteLine($"\n[SUCCESS] Customer '{customer.Name}' removed.");
                     }
                 }
                 Hold();

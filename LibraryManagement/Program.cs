@@ -47,7 +47,7 @@ namespace LibraryManagement
             Console.Write("Test 3: " );
             library.RemoveBook("0000000000000");        // Output: book not found
 
-            // Try to add a new book with ISBN that is already in the library
+            // Test 4. Try to add a new book with ISBN that is already in the library
             Console.Write("Test 4: " );
             var book5 = new Book("Blodapelsin", "Conny McDonald", "9780679641041"); // Same ISBN as book4
             library.AddBook(book5);                     // Output: book already exists
